@@ -1,0 +1,75 @@
+plugins {
+    id 'org.springframework.boot' version '3.5.13' apply false
+    id 'io.spring.dependency-management' version '1.1.7' apply false
+}
+
+allprojects {
+    group = 'com.softgram'
+    version = '0.0.1-SNAPSHOT'
+
+    ext {
+        zxingVersion = '3.5.3'
+        opencvVersion = '4.9.0-0'
+        tess4jVersion = '5.17.0'
+        pdfboxVersion = '2.0.31'
+        springdocVersion = '2.8.5'
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    configurations.all {
+        resolutionStrategy {
+            force "org.apache.pdfbox:pdfbox:2.0.31"
+            force "org.apache.pdfbox:pdfbox-tools:2.0.31"
+            force "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5"
+            force "org.springdoc:springdoc-openapi-starter-common:2.8.5"
+            force "org.springdoc:springdoc-openapi-starter-webmvc-api:2.8.5"
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    bootJar { enabled = false }
+    jar { enabled = true }
+
+    configurations {
+        all {
+            exclude group: 'commons-logging', module: 'commons-logging'
+        }
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}

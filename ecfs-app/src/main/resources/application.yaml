@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: ecfs
+  profiles:
+    active: dev
+  mvc:
+    async:
+      request-timeout: 1h
+  servlet:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 300MB
+
+logging:
+  level:
+    root: INFO
+    '[org.springframework]': WARN
+    '[org.apache.pdfbox]': OFF
+    '[org.apache.fontbox]': OFF
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  packages-to-scan: com.softgram.ecfs
+
+ocr:
+  data-path: C:/Program Files/Tesseract-OCR/tessdata
+  executor:
+    core-pool-size: 3
+    max-pool-size: 5
+    queue-capacity: 20

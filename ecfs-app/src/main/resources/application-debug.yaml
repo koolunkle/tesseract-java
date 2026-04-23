@@ -1,0 +1,13 @@
+spring:
+  jackson:
+    serialization:
+      indent-output: true
+  devtools:
+    restart:
+      enabled: false
+
+logging:
+  level:
+    root: INFO
+    '[com.softgram.ecfs]': DEBUG
+    '[org.springframework.web]': DEBUG

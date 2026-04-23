@@ -1,0 +1,23 @@
+dependencies {
+    implementation project(':ecfs-ocr')
+    implementation project(':ecfs-barcode')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}"
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+bootRun {
+    jvmArgs = ["-Xshare:off"]
+}
+
+bootJar {
+    enabled = true
+    mainClass = 'com.softgram.ecfs.EcfsApplication'
+}
+
+jar {
+    enabled = false
+}

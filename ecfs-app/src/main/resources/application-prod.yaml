@@ -1,0 +1,9 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+
+logging:
+  level:
+    root: INFO
+    '[com.softgram.ecfs]': WARN

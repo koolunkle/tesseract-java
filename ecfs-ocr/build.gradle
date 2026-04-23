@@ -1,0 +1,31 @@
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    implementation project(':ecfs-barcode')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocVersion}"
+
+    implementation ("net.sourceforge.tess4j:tess4j:${tess4jVersion}") {
+        exclude group: 'org.apache.pdfbox'
+    }
+
+    implementation ('technology.tabula:tabula:1.0.5') {
+        exclude group: 'org.slf4j', module: 'slf4j-simple'
+        exclude group: 'org.apache.pdfbox'
+    }
+
+    implementation "org.openpnp:opencv:${opencvVersion}"
+
+    implementation "org.apache.pdfbox:pdfbox:${pdfboxVersion}"
+    implementation "org.apache.pdfbox:pdfbox-tools:${pdfboxVersion}"
+    implementation 'org.apache.pdfbox:jbig2-imageio:3.0.4'
+}
+
+bootJar { enabled = false }
+jar { enabled = true }

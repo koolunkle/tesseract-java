@@ -1,0 +1,5 @@
+rootProject.name = 'ecfs-app' 
+
+include 'ecfs-ocr'
+include 'ecfs-barcode'
+include 'ecfs-app'

@@ -1,0 +1,13 @@
+spring:
+  jackson:
+    serialization:
+      indent-output: true
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+logging:
+  level:
+    '[com.softgram.ecfs]': DEBUG
