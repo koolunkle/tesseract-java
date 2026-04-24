@@ -1,8 +1,8 @@
 # Document Structure Analysis & OCR Engine
 
-![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.13-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
-![OpenCV](https://img.shields.io/badge/OpenCV-4.9.0-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
+![Java](https://img.shields.io/badge/Java-17%2B-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-Native-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
 ![Tesseract](https://img.shields.io/badge/Tesseract-5.x-blue?style=for-the-badge&logo=tesseract&logoColor=white)
 
 A high-performance Optical Character Recognition (OCR) and document parsing engine built with Spring Boot. This service specializes in extracting structured data from Korean legal and financial documents, analyzing spatial coordinates for table reconstruction, and identifying embedded barcodes.
@@ -85,4 +85,5 @@ The project includes unit and integration tests covering OCR accuracy, table rec
 ```
 
 ## License
-This project is licensed under the MIT License.
+This project is distributed under the Apache License 2.0. 
+For details, see the [LICENSE](LICENSE) file.
