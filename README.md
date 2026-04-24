@@ -1,60 +1,88 @@
-# Document Analysis and Information Extraction System
+# Document Structure Analysis & OCR Engine
 
-A Java-based system designed for automated information extraction and analysis from legal and financial documents. This project focuses on processing Korean legal documents, particularly those related to personal rehabilitation and bankruptcy cases, using OCR (Optical Character Recognition) and barcode analysis.
+![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.13-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-4.9.0-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
+![Tesseract](https://img.shields.io/badge/Tesseract-5.x-blue?style=for-the-badge&logo=tesseract&logoColor=white)
 
-## Overview
-
-This system provides a modular architecture to handle complex document processing tasks, including image pre-processing, layout analysis, table extraction, and data validation. It is built to support high-accuracy data extraction from various document formats such as PDF and scanned images.
-
-## Core Domains
-
-The system is specialized in analyzing the following document types:
-- Court Institutional Identification
-- Creditor Lists and Debt Records
-- Account Reports and Financial Statements
-- Rehabilitation Plan Submissions
-- Payment Schedules and Tables
+A high-performance Optical Character Recognition (OCR) and document parsing engine built with Spring Boot. This service specializes in extracting structured data from Korean legal and financial documents, analyzing spatial coordinates for table reconstruction, and identifying embedded barcodes.
 
 ## Key Features
 
-- Optical Character Recognition (OCR): High-performance text extraction using Tesseract.
-- Table Structure Analysis: Advanced logic for identifying and parsing complex table structures within documents.
-- Barcode and QR Code Recognition: Automated detection and decoding of embedded barcodes.
-- Image Pre-processing: Enhancement and normalization of scanned documents using OpenCV to improve extraction accuracy.
-- Document Layout Analysis: Logical section identification through pattern matching and contextual analysis.
+* **Advanced Document & Table Parsing**
+    * **Table Structure Analysis**: Identifies physical contours and grid structures using OpenCV and Tabula-based heuristic engines.
+    * **Domain-Specific Parsing**: Specialized parsers (DebtList, Account, etc.) using pattern matching and fuzzy logic for structured data extraction.
+* **Hybrid OCR & Vision Engine**
+    * **Tesseract Integration**: High-accuracy text extraction using Tess4J (Native Tesseract wrapper).
+    * **Image Pre-processing**: Scanned document enhancement (noise reduction, deskewing) and layout analysis using OpenCV.
+* **Barcode & QR Recognition**
+    * Automated detection and decoding of embedded codes (ZXing integration) for document identification.
+* **Asynchronous Job & SSE Streaming**
+    * **Non-blocking Execution**: Long-running OCR tasks are managed as asynchronous jobs with lifecycle management.
+    * **Real-Time Updates**: Server-Sent Events (SSE) support for tracking processing progress and receiving results page-by-page.
+* **Architectural Standards**
+    * **Hexagonal Architecture**: Clear separation between core logic, ports, and adapters (Web/Infrastructure).
+    * **Type-Safe Domain Models**: Immutable data structures using Java records for extraction payloads.
 
-## Technical Stack
+## API Overview
 
-- Language: Java 17
-- Framework: Spring Boot 3.5.13
-- Build Tool: Gradle
-- Image Processing: OpenCV 4.9.0
-- OCR Engine: Tess4J 5.17.0 (Tesseract wrapper)
-- PDF Processing: Apache PDFBox 2.0.31
-- Barcode Recognition: ZXing 3.5.3
-- Documentation: SpringDoc OpenAPI 2.8.5
+### 1. OCR Job Management
+Asynchronous processing for document analysis and quality diagnosis.
+* **Endpoints:**
+    * `POST /api/ocr/jobs/data`: Register a text and table extraction job.
+    * `POST /api/ocr/jobs/quality`: Register an image quality diagnosis job.
+    * `POST /api/ocr/jobs/structure`: Register a document contour analysis job.
+* **Consumes:** `multipart/form-data` (Supports images and multi-page documents)
+* **Real-time Monitoring:** `GET /api/ocr/jobs/{jobId}/stream` (Produces `text/event-stream`)
+
+### 2. Barcode Recognition
+Direct decoding of barcodes and QR codes from images.
+* **Endpoint:** `POST /api/barcode/decode`
+* **Consumes:** `multipart/form-data`
+* **Produces:** `application/json`
 
 ## Project Structure
 
-The project follows a multi-module architecture:
-- ecfs-app: The main application entry point and API layer.
-- ecfs-ocr: Core OCR logic, table extraction, and document analysis services.
-- ecfs-barcode: Dedicated module for barcode and QR code recognition.
+The project follows a multi-module Gradle architecture to ensure modularity and scalability:
 
-## Requirements
+    tesseract-java/
+     ├── ecfs-app/      # Main application entry point and configuration
+     ├── ecfs-ocr/      # Core OCR, table extraction, and document analysis
+     │    ├── adapter/  # Web controllers (In) and External engines (Out)
+     │    ├── application/ # Use cases and service orchestration
+     │    ├── domain/   # Business models (Parser, Reconstructor, Vision)
+     │    └── common/   # Shared constants, exceptions, and utilities
+     └── ecfs-barcode/  # Dedicated module for barcode and QR code recognition
 
-- Java 17 or higher
-- Tesseract OCR engine installed on the host system
-- OpenCV native libraries configured for the target environment
+## Getting Started
 
-## Build and Run
+### Prerequisites
+* Java 17 or higher
+* Tesseract OCR Engine (installed on host system)
+* OpenCV Native Libraries (configured for the target environment)
 
-To build the project:
+### Installation & Execution
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/tesseract-java.git
+   ```
+2. Build the project:
+   ```bash
+   ./gradlew clean build
+   ```
+3. Run the application:
+   ```bash
+   ./gradlew :ecfs-app:bootRun
+   ```
+
+## Testing
+
+The project includes unit and integration tests covering OCR accuracy, table reconstruction logic, and API endpoints.
+
 ```bash
-./gradlew clean build
+# Run all tests
+./gradlew test
 ```
 
-To run the application:
-```bash
-./gradlew :ecfs-app:bootRun
-```
+## License
+This project is licensed under the MIT License.
