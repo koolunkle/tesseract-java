@@ -15,7 +15,7 @@ bootRun {
 
 bootJar {
     enabled = true
-    mainClass = 'com.softgram.ecfs.EcfsApplication'
+    mainClass = 'com.example.ecfs.EcfsApplication'
 }
 
 jar {

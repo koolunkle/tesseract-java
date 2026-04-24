@@ -9,5 +9,5 @@ spring:
 logging:
   level:
     root: INFO
-    '[com.softgram.ecfs]': DEBUG
+    '[com.example.ecfs]': DEBUG
     '[org.springframework.web]': DEBUG

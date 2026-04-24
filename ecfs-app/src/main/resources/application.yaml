@@ -24,7 +24,7 @@ springdoc:
     operations-sorter: alpha
   api-docs:
     path: /v3/api-docs
-  packages-to-scan: com.softgram.ecfs
+  packages-to-scan: com.example.ecfs
 
 ocr:
   data-path: C:/Program Files/Tesseract-OCR/tessdata

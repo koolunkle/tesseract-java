@@ -10,4 +10,4 @@ spring:
 
 logging:
   level:
-    '[com.softgram.ecfs]': DEBUG
+    '[com.example.ecfs]': DEBUG

@@ -6,4 +6,4 @@ spring:
 logging:
   level:
     root: INFO
-    '[com.softgram.ecfs]': WARN
+    '[com.example.ecfs]': WARN
